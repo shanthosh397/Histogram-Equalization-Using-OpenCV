@@ -67,126 +67,119 @@ Display original color image, histogram, enhanced image, and enhanced histogram 
 
 ---
 
-## Program
+
 
 ### Developed By:
-**Name:** Shanthosh G 
-**Register No:** 2305003008
+**Name:** Shanthosh G
 
-### Ex. No. 02
+**Register Number:** 2305003008
 
-#### 1. import libraries.
+## Program
 ```python
 import cv2
+import numpy as np
 import matplotlib.pyplot as plt
-
 ```
-#### 2. Read grayscale image.
 ```python
-Gray_image = cv2.imread("WhatsApp Image 2026-05-12 at 14.16.29.jpeg", 0)
-
+img = cv2.imread('parrot.jpg', cv2.IMREAD_GRAYSCALE)
 ```
-#### 3. Display Gray Scale Image.
 ```python
-plt.figure(figsize=(6,6))
-plt.imshow(Gray_image, cmap='gray')
-plt.title("Gray Scale Image")
-plt.axis("off")
-plt.show()
-
-```
-#### 4. Read color image.
-```python
-Color_image = cv2.imread("WhatsApp Image 2026-05-12 at 14.32.43.jpeg")
-
-```
-#### 5.Convert BGR to RGB.
-```python
-Color_rgb = cv2.cvtColor(Color_image, cv2.COLOR_BGR2RGB)
-
-```
-#### 6.Display Color Image.
-```python
-plt.figure(figsize=(6,6))
-plt.imshow(Color_rgb)
-plt.title("Color Image")
-plt.axis("off")
-plt.show()
-
-```
-#### 7.Histogram of Gray Scale Image.
-```python
-hist_gray = cv2.calcHist([Gray_image], [0], None, [256], [0,256])
-
-plt.figure(figsize=(8,5))
-plt.title("Histogram of Gray Scale Image")
-plt.xlabel("Pixel Intensity")
-plt.ylabel("Pixel Count")
-plt.plot(hist_gray, color='black')
-plt.xlim([0,256])
-plt.show()
-
-```
-#### 8.Histogram of Blue Channel.
-```python
-hist_blue = cv2.calcHist([Color_image], [0], None, [256], [0,256])
-
-plt.figure(figsize=(8,5))
-plt.title("Histogram of Blue Channel")
-plt.xlabel("Pixel Intensity")
-plt.ylabel("Pixel Count")
-plt.plot(hist_blue, color='blue')
-plt.xlim([0,256])
-plt.show()
-
-```
-#### 9.Histogram Equalization.
-```python
-equalized = cv2.equalizeHist(Gray_image)
-```
-#### 10.Histogram of Equalized Image
-```python
-hist_equalized = cv2.calcHist([equalized], [0], None, [256], [0,256])
-
-plt.figure(figsize=(8,5))
-plt.title("Histogram of Equalized Image")
-plt.xlabel("Pixel Intensity")
-plt.ylabel("Pixel Count")
-plt.plot(hist_equalized, color='green')
-plt.xlim([0,256])
+plt.imshow(img, cmap='gray')
+plt.title('Original Image')
 plt.show()
 ```
-
+```python
+plt.hist(img.ravel(),256,range = [0, 256]);
+plt.title('Original Image')
+plt.show()
+```
+```python
+img_eq = cv2.equalizeHist(img)
+```
+```python
+plt.hist(img_eq.ravel(), 256, range = [0, 256])
+plt.title('Equalized Histogram')
+```
+```python
+plt.imshow(img_eq, cmap='gray')
+plt.title('Original Image')
+plt.show()
+```
+```python
+img = cv2.imread('parrot.jpg', cv2.IMREAD_COLOR)
+```
+```python
+img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+```
+```python
+img_hsv[:,:,2] = cv2.equalizeHist(img_hsv[:, :, 2])
+```
+```python
+img_eq = cv2.cvtColor(img_hsv, cv2.COLOR_HSV2BGR)
+```
+```python
+plt.imshow(img_eq[:,:,::-1]); plt.title('Equalized Image');plt.show()
+```
+```python
+plt.hist(img_eq.ravel(),256,range = [0, 256]); plt.title('Histogram Equalized');plt.ashow()
+```
+```python
+plt.figure(figsize = (20,10))
+plt.subplot(221); plt.imshow(img[:, :, ::-1]); plt.title('Original Color Image')
+plt.subplot(222); plt.imshow(img_eq[:, :, ::-1]); plt.title('Equalized Image')
+plt.show()
+```
+```python
+plt.figure(figsize = [15,4])
+plt.subplot(121); plt.hist(img.ravel(),256,range = [0, 256]); plt.title('Original Image')
+plt.subplot(122); plt.hist(img_eq.ravel(),256,range = [0, 256]); plt.title('Histogram Equalized')
+```
+---
 
 ##  Output
 
 ### Grayscale Histogram Equalization
 
 - Original grayscale image is displayed
-<img width="523" height="364" alt="image" src="https://github.com/user-attachments/assets/6c14ebd8-9515-4c26-bc64-3e23db945c1b" />
 
-- Histogram of original grayscale image is plotted
-<img width="597" height="389" alt="image" src="https://github.com/user-attachments/assets/cb50a1ad-e60b-41b6-9289-3bec4d6247ba" />
+
+<img width="683" height="494" alt="image" src="https://github.com/user-attachments/assets/fc71158b-f4a3-4d23-b767-5ffe8af232b8" />
+  
  
+- Histogram of original grayscale image is plotted
+
+<img width="718" height="536" alt="image" src="https://github.com/user-attachments/assets/dbb118c5-c63d-410f-ad2c-428323a213ee" />
+
+- Enhanced image after histogram equalization is displayed
+
+<img width="714" height="540" alt="image" src="https://github.com/user-attachments/assets/df9c004f-d3a5-4244-9a54-ed0652f7caee" />
+
+- Histogram of enhanced grayscale image shows improved contrast  
+
+
+
 
 ### Color Image Histogram Equalization
 
 - Original color image is displayed
-<img width="502" height="360" alt="image" src="https://github.com/user-attachments/assets/f954f34a-3469-4817-910e-39bc20891d51" />
 
+<img width="682" height="488" alt="image" src="https://github.com/user-attachments/assets/89a599b6-c195-4a9e-9863-0b90391485d4" />
+ 
 - Histogram of B, G, R channels is plotted
-<img width="608" height="388" alt="image" src="https://github.com/user-attachments/assets/c37cf6b3-a9e5-4851-ac7e-dd615a414c0b" />
-  
 
-### Equalization Image 
-
-- Display Equalized Image
-<img width="506" height="363" alt="image" src="https://github.com/user-attachments/assets/2185f423-6d7e-4daf-b52b-db97119c6fbc" />
-
-- Histogram of Equalized Image
-<img width="593" height="406" alt="image" src="https://github.com/user-attachments/assets/6935317c-529e-41c9-9ff2-c92029864f86" />
+<img width="716" height="543" alt="image" src="https://github.com/user-attachments/assets/d3071a44-326e-4d05-8b6b-fdaedaa01b01" />
 
 
+- Enhanced image after HSV-based equalization is displayed
+
+<img width="1004" height="292" alt="image" src="https://github.com/user-attachments/assets/895dec56-5afa-4c73-b886-672e8b7ea583" />
+
+- Histogram of enhanced image shows better intensity distribution
+
+<img width="1003" height="302" alt="image" src="https://github.com/user-attachments/assets/cd654a6d-837c-4dd5-937b-69f4f7dc4fad" />
+
+
+---
 
 ## Result
 
