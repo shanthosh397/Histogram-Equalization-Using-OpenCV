@@ -72,7 +72,8 @@ Display original color image, histogram, enhanced image, and enhanced histogram 
 ### Developed By:
 **Name:** Shanthosh G 
 **Register No:** 2305003008
-  ### Ex. No. 02
+
+### Ex. No. 02
 
 #### 1. import libraries.
 ```python
